@@ -1,0 +1,51 @@
+<style media="screen">
+.mid-hv{
+    height:100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.bg-office{
+    background-image: url("assets/img/empty-office-background.png");
+    background-size: cover;
+}
+@media (max-width: 768px) {
+    .none{
+        display: none;
+        /* //height:auto; */
+    }
+}
+.back-left{
+    background-image: url('assets/img/back-left.png');
+    background-size: cover;
+}
+</style>
+<img src="assets/img/iconpln.png" style="position:fixed;left:10px;top:10px">
+
+<div class="row">
+    <div class="col-md-3 none back-left"></div>
+    <div class="col-md-4 border-start px-3" style="padding-top:20vh;height:100vh;">
+        <div class="mb-3 text-center fredericka">
+            <h3>{{alt.title}}</h3>
+        </div>
+        <form ng-submit="submit()">
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingInput" placeholder="username" ng-model="data.email" required>
+            <label for="floatingInput">Username</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="{{check_password?'text':'password'}}" class="form-control" id="floatingPassword" placeholder="Password" ng-model="data.password" required>
+            <label for="floatingPassword">Password</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" ng-model="check_password">
+            <label class="form-check-label" for="flexCheckDefault">
+                Show Password
+            </label>
+        </div>
+        <div class="d-grid py-3">
+            <button type="submit" class="btn btn-primary btn-lg">Login</button>
+        </div>
+    </form>
+    </div>
+</div>

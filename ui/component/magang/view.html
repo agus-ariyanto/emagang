@@ -1,0 +1,142 @@
+<div class="table-responsive">
+    <div class="text-end">
+        <button type="button" class="btn btn-primary" ng-click="add()">
+            <span class="fa fa-plus"></span>
+            <span class="px-2">Baru</span>
+        </button>
+    </div>
+    <table class="table table-condensed">
+        <thead>
+            <tr>
+                <th>Nama</th>
+                <th>Phone</th>
+                <th>Alamat</th>
+                <th>Divisi</th>
+                <th>office</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="a in table">
+                <td>{{a.nama}}</td>
+                <td>{{a.phone}}</td>
+                <td>{{a.alamat}}</td>
+                <td>{{a.divisi_nama}}</td>
+                <td>{{a.office_nama}}</td>
+                <td class="text-end">
+                    <button type="button" class="btn btn-outline-secondary btn-sm" ng-click="edit(a,3)">
+                        <span class="px-2">Akun</span>
+                    </button>
+                    <button type="button" class="btn btn-outline-primary btn-sm" ng-click="edit(a,2)">
+                        <span class="px-2">Edit</span>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-sm" ng-click="edit(a,4)">
+                        <span class="px-2">Hapus</span>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="grey-backdrop" ng-show="step>0">
+    <form class="col-md-6 form" role="form" ng-submit="submit()">
+        <div class="mb-3" ng-if="step==1||step==2">
+            <div class="mb-3 text-muted">
+                <div><strong>Profil</strong></div>
+                <small>Data diri untuk karyawan magang</small>
+            </div>
+            <div class="mb-3">
+                <label for="">Nama</label>
+                <input type="text" class="form-control" ng-model="data.nama" required>
+            </div>
+            <div class="mb-3">
+                <label for="">Phone</label>
+                <input type="text" class="form-control" ng-model="data.phone" required>
+            </div>
+            <div class="mb-3">
+                <label for="">Alamat</label>
+                <input type="text" class="form-control" ng-model="data.alamat" required>
+            </div>
+            <div class="mb-3">
+                <label for="">Divisi</label>
+                <select class="form-select" ng-model="data.divisi_id" ng-options="d.id as d.nama for d in divisi">
+                    <option value="" style="display:none"></option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="">Office</label>
+                <select class="form-select" ng-model="data.office_id" ng-options="o.id as o.nama for o in office">
+                    <option value="" style="display:none"></option>
+                </select>
+            </div>
+            <div class="separator"></div>
+        </div>
+        <div class="mb-3" ng-if="step==1||step==3">
+            <div class="mb-3 text-muted">
+                <div><strong>Akun</strong></div>
+                <small>Data karyawan magang untuk melakukan login</small>
+            </div>
+            <div class="mb-3">
+                <label for="">Username</label>
+                <input type="text" class="form-control" ng-model="data.email" required>
+            </div>
+            <div class="">
+                <label for="">Password</label>
+                <input type="{{show_password?'text':'password'}}" class="form-control" ng-model="data.password" required>
+            </div>
+            <div class="form-check mb-3">
+                  <input class="form-check-input" type="checkbox" ng-model="show_password" id="show-password">
+                  <label class="form-check-label" for="show-password">Show Password</label>
+            </div>
+            <div class="separator"></div>
+        </div>
+        <div class="text-end">
+            <button type="button" class="btn btn-light" ng-click="step=0">
+                <span class="px-2">Cancel</span>
+            </button>
+            <button type="submit" class="btn btn-primary">
+                <span class="fa fa-paper-plane"></span>
+                <span class="px-2">Submit</span>
+            </button>
+        </div>
+    </form>
+</div>
+
+<div class="grey-backdrop" ng-show="step==4">
+    <form class="col-md-6 form" ng-submit="remove()">
+        <h3 class="text-danger text-center">Konfirmasi Hapus</h3>
+        <div class="mb-3 bg-light border p-3">
+            <div>Akun :</div>
+            <div class="row small italic text-muted">
+                <div class="col-3">Nama</div>
+                <div class="col">{{data.nama}}</div>
+            </div>
+            <div class="row small italic text-muted">
+                <div class="col-3">Phone</div>
+                <div class="col">{{data.phone}}</div>
+            </div>
+            <div class="row small italic text-muted">
+                <div class="col-3">Divisi</div>
+                <div class="col">{{data.divisi_nama}}</div>
+            </div>
+            <div class="row small italic text-muted">
+                <div class="col-3">Office</div>
+                <div class="col">{{data.office_nama}}</div>
+            </div>
+        </div>
+        <div class="mb-3 small">
+            catatan :<br>
+            menghapus akun ini hanya menghapus akun untuk login, <br>
+            sedangkan profil masih disimpan untuk catatan absen sebelumnya.
+        </div>
+        <div class="text-end">
+            <button type="button" class="btn btn-light" ng-click="step=0">
+                <span class="px-2">Cancel</span>
+            </button>
+            <button type="submit" class="btn btn-danger">
+                <span class="px-2">Delete</span>
+            </button>
+        </div>
+    </form>
+</div>
