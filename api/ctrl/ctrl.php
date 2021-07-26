@@ -12,7 +12,10 @@ class Ctrl extends Base{
         $this->authlogin=$authlogin;
     }
 
-
+    function notfound(){
+        $this->data(0);
+        $this->status(404);
+    }
     function index(){
         // get
         if($this->Params->isGet){
@@ -87,9 +90,11 @@ class Ctrl extends Base{
 
     function id(){
         $res=$this->db->id($this->model,$this->model_id);
+        //$res=$this->db->testQry();
+
         if(empty($res)) {
-            $this->notfound();
-            return;
+         $this->notfound();
+         return;
         }
         $this->data($res);
     }

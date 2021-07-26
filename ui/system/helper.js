@@ -51,6 +51,13 @@ define([], function(){
             return '12';
         }
 
+        api.dow=function(val){
+            // basis iso 8601,
+            // 1 : Senin - 7 : Minggu
+            var h=['-','Senin','Selasa','Rabu','Kamis','Jum\'at','Sabtu','Minggu'];
+            return h[val];
+        }
+
         api.extractFileName=function(fullpath){
           return fullpath.replace(/^.*[\\\/]/, '');
         }
@@ -164,7 +171,6 @@ define([], function(){
         api.toFormat=function(dbdate,to_format){
             var tf=to_format||'dd MMM yyyy';
             var d=dbdate.replace(' ','T');
-
             var t=Date.parse(d).toString(tf);
             //console.log(t);
             return t;

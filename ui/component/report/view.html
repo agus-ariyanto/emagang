@@ -1,1 +1,41 @@
-contro
+<div class="row mb-3">
+    <div class="col px-3">Presensi</div>
+    <div class="col-1 text-end">
+
+        <button type="button" class="btn btn-outline-secondary btn-sm border-white" ng-click="toTab(3)">
+            <span class="fa fa-times"></span>
+        </button>
+    </div>
+</div>
+<div class="row mb-3">
+    <div class="col">
+        <select class="form-select" ng-options="b.val as b.name for b in bulan" ng-model="data.bulan">
+            <option value="" style="display:none"></option>
+        </select>
+    </div>
+    <div class="col">
+        <input type="text" class="form-control" list="list-tahun" ng-model="data.tahun">
+        <datalist id="list-tahun">
+            <option value="2021"></option>
+            <option value="2020"></option>
+            <option value="2019"></option>
+        </datalist>
+    </div>
+</div>
+<table class="table table-sm small">
+    <thead>
+        <tr class="text-muted italic">
+            <th>Tanggal</th>
+            <th>Jam</th>
+            <th>Keterangan</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="h in history">
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+</div>

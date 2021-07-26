@@ -1,0 +1,39 @@
+<div class="row mb-3" ng-if="isadmin()">
+    <div class="col">
+        <label for="">Bulan</label>
+        <select class="form-select" ng-options="b.val as b.name for b in bulan" ng-model="data.bulan">
+            <option value="" style="display:none"></option>
+        </select>
+    </div>
+    <div class="col">
+        <label for="">Tahun</label>
+        <input type="text" class="form-control" list="list-tahun" ng-model="data.tahun">
+    </div>
+</div>
+<div class="mb-3" ng-if="!isadmin()">
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" ng-model="data.bulan_lalu" id="bulan-lalu">
+        <label class="form-check-label" for="bulan-lalu">Bulan Lalu</label>
+    </div>
+</div>
+
+<table class="table table-sm small">
+    <thead>
+        <tr class="text-muted italic">
+            <th>Tanggal</th>
+            <th>Hari</th>
+            <th>Jam</th>
+            <th>Kode</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="x in table">
+            <td>{{helper.toFormat(x.ts,'dd MMM yyyy')}}</td>
+            <td>{{helper.dow(x.dow)}}</td>
+            <td>{{helper.toFormat(x.ts,'HH:mm:ss')}}</td>
+            <td>{{x.status==1?'WFO':'WFH'}}</td>
+            <td>{{x.kode_nama}}</td>
+        </tr>
+    </tbody>
+</table>
+</div>

@@ -7,6 +7,7 @@ class EmgAuthprofil extends Model{
     protected $table='emgauth';
     protected $columns=array(
         'email'=>'VARCHAR(128)',
+        'grup_id'=>'INT',
     );
 
 }

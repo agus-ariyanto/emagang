@@ -16,23 +16,164 @@
     .box-shadow{
         box-shadow: 1px 1px 3px #cacaca;
     }
+    .brand{
+        display: inline-block;
+        width:80%;
+        text-align: center;
+    }
 </style>
-<div class="topbar">
-        <button type="button" class="btn btn-outline-secondary border-white">
-            <span class="fa fa-bars"></span>
-        </button>
-        <span class="px-3 brand fredericka">{{alt.title}}</span>
-</div>
-<div class="row">
-    <div class="col-md p-2">
-        <div class="col bg-white p-2 box-shadow">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </div>
-    </div>
-    <div class="col-md p-2">
-        <div class="col bg-white p-2 box-shadow">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </div>
-    </div>
 
+
+<div class="topbar">
+<button class="btn btn-outline-secondary border-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#off-left" aria-controls="off-left-ctrl">
+    <span class="fa fa-bars"></span>
+</button>
+<span class="px-3 brand fredericka">{{alt.title}}</span>
 </div>
+
+<div class="offcanvas offcanvas-start bg-dark" tabindex="-1" id="off-left" aria-labelledby="off-left-label">
+  <div class="mb-3">
+      <button type="button" class="btn btn-dark" data-bs-dismiss="offcanvas" aria-label="Close">
+          <span class="fa fa-arrow-left"></span>
+      </button>
+  </div>
+  <div class="offcanvas-body">
+      <span class="menu-left-item px-3 rounded" ng-click="toTab(0)">
+          <span class="fa fa-home menu-left-icon"></span>Beranda
+      </span>
+      <span class="menu-left-item px-3 rounded" ng-click="toTab(4)">
+          <span class="fa fa-chart-bar menu-left-icon"></span>Riwayat
+      </span>
+      <span class="menu-left-item px-3 rounded" ng-click="toTab(3)">
+          <span class="fa fa-user menu-left-icon"></span>Akun
+      </span>
+      <div class="hr mb-2"></div>
+      <span class="menu-left-item px-3 rounded pointer" ng-click="logout()">
+          <span class="fa fa-power-off menu-left-icon"></span>Logout
+      </span>
+  </div>
+</div>
+
+<style media="screen">
+    .desc-text{
+        display: inline-block;
+        width:4rem;
+    }
+    .min-25{
+        min-height:25vh;
+    }
+    .margin-auto{
+        margin:auto;
+    }
+</style>
+
+
+
+    <div class="col-md-8 p-2 margin-auto">
+        <div class="col bg-white p-2 box-shadow min-25">
+            <div class="row">
+                <div class="col px-3">
+                    <div class="mb-3">Data Diri</div>
+                </div>
+                <div class="col text-end">
+                    <button type="button" class="btn btn-outline-secondary btn-sm border-white" ng-click="toTab(3)">
+                        <span class="fa fa-cog"></span>
+                    </button>
+                </div>
+            </div>
+            <div class="mb-1 small px-3">
+                <span class="desc-text text-muted italic">Nama</span>
+                <span>{{profil.nama}}</span>
+            </div>
+            <div class="mb-1 small px-3">
+                <span class="desc-text text-muted italic">Divisi</span>
+                <span>{{profil.divisi_nama}}</span>
+            </div>
+            <div class="mb-1 small px-3">
+                <span class="desc-text text-muted italic">Office</span>
+                <span>{{profil.office_nama}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8 p-2 margin-auto">
+        <div class="col bg-white p-2 box-shadow min-25" ng-show="tab==0">
+            <div class="row">
+                <div class="col px-3">
+                    <div class="mb-3">Hari Ini </div>
+
+                </div>
+                <div class="col text-end">
+                    <button type="button" class="btn btn-outline-secondary btn-sm border-white" ng-click="toTab(3)">
+                        <span class="fa fa-chart-bar"></span>
+                    </button>
+                </div>
+            </div>
+            <div class="mb-1 small px-3">
+                <span class="desc-text text-muted italic ">{{today.hari}}</span>
+                <span>{{helper.toFormat(today.tanggal+'T'+today.jam)}}</span>
+            </div>
+            <div class="mb-3 small px-3" ng-show="today.libur">
+                <span class="desc-text text-muted italic">Bertepatan</span>
+                <span>{{today.libur.title}}</span>
+            </div>
+            <div class="separator-double"></div>
+            <div class="text-center mb-3" ng-if="today.clock_in.done">
+                <div class="rounded bg-light p-3">
+                    <div>{{getCatKode(today.clock_in.kode_absentia)}} : {{today.clock_in.kode_nama}}</div>
+                    <!-- <div><strong>{{today.clock_in.jam}}</strong></div> -->
+                    <div><strong>{{helper.toFormat(today.clock_in.ts,'HH:mm:ss')}}</strong></div>
+                </div>
+            </div>
+
+            <div class="text-center mb-3">
+                <button type="button" class="btn {{today.done?'btn-light':'btn-secondary'}}" ng-click="toTab(2)" ng-disabled="today.done">
+                    <span class="fa fa-calendar-check"></span>
+                    <span class="">{{getCatKode(2)}}</span>
+                </button>
+                <button type="button" class="btn {{today.done?'btn-light':'btn-primary'}}" ng-click="toTab(1)" ng-disabled="today.done">
+                    <span class="fa fa-check"></span>
+                    <span class="px-2">{{getCatKode(1)}}</span>
+                </button>
+            </div>
+    </div>
+</div>
+<div class="grey-backdrop" ng-show="tab==1">
+    <div class="col-md-6 form" style="padding-top:10px;">
+        <div class="mb-3">
+            <button type="button" class="btn btn-outline-secondary border-white" ng-click="tab=0">
+                <span class="fa fa-arrow-left"></span>
+            </button>
+        </div>
+        <div class="separator"></div>
+        <div class="d-grid gap-2 col-6 mx-auto">
+            <button type="button" class="btn btn-secondary" ng-click="submit(p)" ng-repeat="p in presensi">
+                <span class="px-3">{{p.nama}}</span>
+            </button>
+        </div>
+        <div class="separator-double"></div>
+    </div>
+</div>
+
+<div class="grey-backdrop" ng-show="tab==2">
+    <div class="col-md-6 form" style="padding-top:10px;">
+        <div class="mb-3">
+            <button type="button" class="btn btn-outline-secondary border-white" ng-click="tab=0">
+                <span class="fa fa-arrow-left"></span>
+            </button>
+        </div>
+        <div class="separator"></div>
+        <div class="d-grid gap-2 col-6 mx-auto">
+            <div class="text-center mb-3 text-secondary">
+                <span class="fa fa-calendar-check"></span>
+                <span class="">Absensi</span>
+            </div>
+            <button type="button" class="btn btn-secondary" ng-click="submit(i)" ng-repeat="i in absensi">
+                <span class="px-3">{{i.nama}}</span>
+            </button>
+        </div>
+        <div class="separator-double"></div>
+    </div>
+</div>
+
+<div alt-component="akun" data-scope="akun" class="grey-backdrop" ng-show="tab==3"></div>
+<div alt-component="history" data-scope="history" class="grey-backdrop" ng-show="tab==4"></div>

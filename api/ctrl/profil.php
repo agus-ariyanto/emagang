@@ -4,11 +4,12 @@ class Profil extends Ctrl{
         parent::__construct();
         $this->model='profil';
         $this->model_id=$this->query[0];
-        if(!empty($this->Params->key('password'))) $this->Params->set('pwd',sha1($this->Params->key('password')));
     }
 
     protected function saveAccount(){
         $this->addModel('auth');
+        if(!empty($this->Params->key('password')))
+              $this->Params->set('pwd',sha1($this->Params->key('password')));
         $auth_id=$this->auth->savePost($this->Params->all());
         $this->Params->set('authprofil_id',$auth_id);
         return $auth_id;
@@ -22,7 +23,7 @@ class Profil extends Ctrl{
 
     // hanya untuk ganti password ;
     function account(){
-        $this->model_id=$this->saveAccont();
+        $this->model_id=$this->saveAccount();
         $this->model='authprofil';
         parent::id();
     }

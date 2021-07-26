@@ -411,8 +411,16 @@ QRY;
     }
 
     function savePost($post){
+        /*
+        tambahan 13-07-2021
+        fix id on savePost()
+        dulu return dobel sanitize
+        menyebabkan error untuk update
+        */
+        $id='';
+        if(!empty($post['id'])) $id=$post['id'];
         $this->add($post);
-        return $this->save();
+        return $this->save($id);
     }
 
     /* metod untuk memasukkan nilai post

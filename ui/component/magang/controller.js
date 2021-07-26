@@ -19,7 +19,10 @@ define(['ui/system/api','ui/system/helper'], function(){
         $scope.submit=function(){
             var a='profil/submit';
             if($scope.step==2) a='profil/save';
-            if($scope.step==3) a='profil/account';
+            if($scope.step==3){
+                $scope.data.id=$scope.data.authprofil_id;
+                a='profil/account';
+            }
             Api.Post(a,$scope.data)
             .then(function(res){
                 $scope.init();
